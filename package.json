@@ -1,0 +1,17 @@
+{
+  "name": "mern-project-shopping",
+  "version": "1.0.0",
+  "description": "This is a MERN Stack Project using by React and Node",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/index.js",
+    "dev": "nodemon backend/index.js"
+  },
+  "author": "Hossain Rabbi",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^5.13.14"
+  }
+}
