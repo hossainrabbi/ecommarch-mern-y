@@ -8,11 +8,13 @@ const app = express();
 // added .env config file
 dotenv.config({ path: 'backend/config/.env' });
 
-// Middleware middleware
+// Middleware
 app.use(express.json());
-app.use(errorMiddleware);
 
 // Use Router
 app.use('/api/v1', productRoute);
+
+// Error Handler
+app.use(errorMiddleware);
 
 module.exports = app;
