@@ -37,7 +37,7 @@ const productSchema = new Schema({
   },
   stock: {
     type: Number,
-    required: [true, 'Please Enter Product Description'],
+    required: [true, 'Please Enter Product Stock'],
     maxLength: [4, 'Stock cannot exceed 8 characters'],
     default: 1,
   },
