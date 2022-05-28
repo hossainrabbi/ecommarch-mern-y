@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const productRoute = require('./routers/productRoute');
 const errorMiddleware = require('./middleware/error');
@@ -11,6 +12,7 @@ dotenv.config({ path: 'backend/config/.env' });
 
 // Middleware
 app.use(express.json());
+app.use(cookieParser());
 
 // Use Router
 app.use('/api/v1', productRoute);
