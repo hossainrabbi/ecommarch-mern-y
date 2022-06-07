@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const productRoute = require('./routers/productRoute');
 const errorMiddleware = require('./middleware/error');
 const userRouter = require('./routers/userRoute');
+const orderRouter = require('./routers/orderRoute');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cookieParser());
 // Use Router
 app.use('/api/v1', productRoute);
 app.use('/api/v1', userRouter);
+app.use('/api/v1', orderRouter);
 
 // Error Handler
 app.use(errorMiddleware);
