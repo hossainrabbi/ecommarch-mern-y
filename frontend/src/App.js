@@ -6,6 +6,7 @@ import Home from './components/Home/Home';
 import Footer from './components/layout/Footer/Footer';
 import Header from './components/layout/Header/Header';
 import ProductDetails from './components/ProductDetails/ProductDetails';
+import Products from './components/Products/Products';
 
 export default function App() {
   useEffect(() => {
@@ -21,6 +22,7 @@ export default function App() {
       <Header />
       <Route exact path="/" component={Home} />
       <Route exact path="/product/:id" component={ProductDetails} />
+      <Route exact path="/products" component={Products} />
       <Footer />
     </Router>
   );
