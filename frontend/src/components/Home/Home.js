@@ -45,8 +45,10 @@ export default function Home() {
       <div className="container" id="container">
         {error ? (
           <div>{error}</div>
-        ) : products ? (
-          products.map((product) => <Product product={product} />)
+        ) : !loading && products ? (
+          products.map((product) => (
+            <Product product={product} key={product._id} />
+          ))
         ) : (
           <div>Product Not Found</div>
         )}
