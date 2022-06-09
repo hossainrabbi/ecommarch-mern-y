@@ -7,6 +7,7 @@ import Footer from './components/layout/Footer/Footer';
 import Header from './components/layout/Header/Header';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import Products from './components/Products/Products';
+import LoginSign from './components/user/LoginSign';
 
 export default function App() {
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function App() {
       <Route exact path="/" component={Home} />
       <Route exact path="/product/:id" component={ProductDetails} />
       <Route exact path="/products" component={Products} />
+      <Route exact path="/login" component={LoginSign} />
       <Footer />
     </Router>
   );
