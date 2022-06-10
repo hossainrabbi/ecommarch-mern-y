@@ -1,21 +1,37 @@
 import { Face, LockOpen, MailOutline } from '@mui/icons-material';
-import React, { useRef, useState } from 'react';
-import avatarPreview from '../../images/Profile.png';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../actions/userAction';
 import './LoginSign.css';
 
-export default function LoginSign() {
+export default function LoginSign({ history }) {
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
 
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  const [avatar, setAvatar] = useState();
+  const [avatarPreview, setAvatarPreview] = useState('/Profile.png');
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
   });
   const { name, email, password } = user;
+
+  const dispatch = useDispatch();
+  const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
+
+  console.log(error, loading, isAuthenticated);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push('/account');
+    }
+  }, [isAuthenticated, history]);
 
   const switchTabs = (e, tab) => {
     if (tab === 'login') {
@@ -34,9 +50,40 @@ export default function LoginSign() {
     }
   };
 
-  const loginSubmit = (e) => {};
-  const registerSubmit = (e) => {};
-  const registerDataChange = (e) => {};
+  const loginSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(loginEmail, loginPassword));
+  };
+
+  const registerSubmit = (e) => {
+    e.preventDefault();
+    const myFrom = new FormData();
+    myFrom.set('name', name);
+    myFrom.set('email', email);
+    myFrom.set('password', password);
+    myFrom.set('avatar', avatar);
+
+    console.log('Register form Submit');
+  };
+
+  console.log('avatar', avatar, 'avatarPreview', avatarPreview);
+
+  const registerDataChange = (e) => {
+    if (e.target.name === 'avatar') {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setAvatar(reader.result);
+          setAvatarPreview(reader.result);
+        }
+      };
+
+      reader.readAsDataURL(e.target.files[0]);
+    } else {
+      setUser({ ...user, [e.target.name]: [e.target.value] });
+    }
+  };
 
   return (
     <>
@@ -70,7 +117,12 @@ export default function LoginSign() {
                 onChange={(e) => setLoginPassword(e.target.value)}
               />
             </div>
-            <input type="submit" value="Login" className="loginBtn" />
+            <input
+              disabled={loading}
+              type="submit"
+              value={loading ? 'Loading...' : 'Login'}
+              className="loginBtn"
+            />
           </form>
           <form
             className="signUpForm"
@@ -122,6 +174,8 @@ export default function LoginSign() {
               />
             </div>
             <input type="submit" value="Register" className="signUpBtn" />
+
+            {error && <div>{error}</div>}
           </form>
         </div>
       </div>
